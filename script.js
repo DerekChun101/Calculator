@@ -36,14 +36,17 @@ function operate (num1, num2, operator) {
     }
 }
 
-const num1 = 1;
-const num2 = 2;
+let num1 = '';
+let num2 = '';
 const operator = 'add';
 
 const digits = document.querySelectorAll('.digitsButton');
+const display = document.querySelector('.display');
 digits.forEach(button => {
     button.addEventListener('click', () => {
-        console.log(button.textContent);
+        num1 += button.textContent;
+        console.log(num1);
+        display.textContent = num1;
     })
-})
+});
 console.log(digits); 
