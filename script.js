@@ -39,3 +39,11 @@ function operate (num1, num2, operator) {
 const num1 = 1;
 const num2 = 2;
 const operator = 'add';
+
+const digits = document.querySelectorAll('.digitsButton');
+digits.forEach(button => {
+    button.addEventListener('click', () => {
+        console.log(button.textContent);
+    })
+})
+console.log(digits); 
