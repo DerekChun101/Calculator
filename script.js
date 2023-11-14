@@ -57,8 +57,9 @@ function nextNum () {
 
 let num1 = '';
 let num2 = '';
-const operator = 'add';
+let operator = '';
 let isFirstNum = 'true';
+
 const digits = document.querySelectorAll('.digitsButton');
 const display = document.querySelector('.display');
 digits.forEach(button => {
@@ -73,7 +74,13 @@ const operators = document.querySelectorAll('.operatorsButtons');
 operators.forEach(button => {
     button.addEventListener('click', () => {
         if(isFirstNum === false) {
+            operator = button.id;
             nextNum();
         }
     })
+});
+const equals = document.querySelector('.equals');
+equals.addEventListener('click', () => {
+
+    operate(+num1, +num2, operator);
 });
