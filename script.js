@@ -126,7 +126,7 @@ equals.addEventListener('click', () => {
     }
 });
 const clear = document.querySelector('.clear');
-clear.addEventListener('click', () => {g
+clear.addEventListener('click', () => {
     display.textContent = '';
     resetNums();
     backToOne();
