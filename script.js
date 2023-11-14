@@ -1,86 +1,127 @@
 function add (x ,y) {
-    console.log(x + y);
+    //console.log(x + y);
     return x + y;
     
 }
 
 function subtract(x, y) {
-    console.log(x - y);
+   // console.log(x - y);
     return x - y;
 }
 
 function multiply(x ,y) {
-    console.log(x * y);
+//console.log(x * y);
     return x * y;
 }
 
 function divide(x, y) {
-    console.log(x / y);
+    //console.log(x / y);
     return x/y;
 }
 
 
-function operate (num1, num2, operator) {
+function operate (currentNum, nextNum, operator) {
     switch (operator) {
         case 'add':
-            add(num1, num2);
-            break;
+            return add(currentNum, nextNum);
         case 'subtract':
-            subtract(num1, num2);
-            break;
+            return subtract(currentNum, nextNum);
         case 'multiply':
-            multiply(num1, num2);
-            break;
+            return multiply(currentNum, nextNum);
+         
         case 'divide':
-            divide(num1, num2);
+            return divide(currentNum, nextNum);
     }
 }
 
-function nextNum () {
+function next () {
+    isFirstNum = false;
+    isSecondNum = true;
     digits.forEach(button => {
         button.onclick = () => {
-            num2 += button.textContent;
-            display.textContent = num2;
-            console.log('num1 :' + num1);
-            console.log('num2 :' + num2);
+            nextNum += button.textContent;
+            display.textContent = nextNum;
+            console.log(nextNum);                                                          
+        
         }
     });                                                                            
     
 }
+function backToOne () {
+    digits.forEach(button => {
+        button.onclick = () => {
+            currentNum += button.textContent;
+            console.log(currentNum);
+            display.textContent = currentNum;
+        }
+    });
+}
+function resetNums() {
+    currentNum = '';
+    nextNum = '';
+    operator = '';
+    isFirstNum = true;
+    isSecondNum = false;
+}
 // function updateDisplay(text) {
-//     num1 += this.textContent;
-//     console.log(num1);
-//     display.textContent = num1;
-//     isFirstNum = false;
+//     currentNum += this.textContent;
+//     console.log(currentNum);
+//     display.textContent = currentNum;
+//     isFirstNum= false;
 // }
 
-
-let num1 = '';
-let num2 = '';
+//DEFAULT VALUES
+let currentNum = '';
+let nextNum = '';
 let operator = '';
-let isFirstNum = 'true';
+let currentValue = '';
+let isFirstNum = true;
+let isSecondNum = false;
 
+//BUTTONS
 const digits = document.querySelectorAll('.digitsButton');
 const display = document.querySelector('.display');
+
 digits.forEach(button => {
     button.onclick = () => {
-        num1 += button.textContent;
-        console.log(num1);
-        display.textContent = num1;
-        isFirstNum = false;
+        currentNum += button.textContent;
+        console.log(currentNum);
+        display.textContent = currentNum;
     }
 });
+
 const operators = document.querySelectorAll('.operatorsButtons'); 
 operators.forEach(button => {
     button.addEventListener('click', () => {
-        if(isFirstNum === false) {
+        if(isFirstNum === true && isSecondNum === false) {
             operator = button.id;
-            nextNum();
+            console.log(operator);
+            next();
+        } else if(isFirstNum === false && isSecondNum === true) {
+            currentValue = operate(+currentNum, +nextNum, operator);
+            display.textContent = currentValue;
+            console.log(currentValue);
+            operator = button.id;
+            currentNum = currentValue;
+            nextNum = '';
+
         }
     })
 });
 const equals = document.querySelector('.equals');
 equals.addEventListener('click', () => {
-
-    operate(+num1, +num2, operator);
+    currentValue = operate(+currentNum, +nextNum, operator);
+    display.textContent = currentValue;
+    console.log(currentValue);
+    currentNum = currentValue;
+    nextNum = '';
+    isFirstNum = true;
+    isSecondNum = false;
 });
+const clear = document.querySelector('.clear');
+clear.addEventListener('click', () => {
+    display.textContent = '';
+    resetNums();
+    backToOne();
+});
+
