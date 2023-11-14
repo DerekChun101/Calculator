@@ -20,7 +20,7 @@ function divide(x, y) {
 }
 
 
-function operate (currentNum, nextNum, operator) {
+function operate (currentNum, nextNum, operator) { //Call math functions
     switch (operator) {
         case 'add':
             return add(currentNum, nextNum);
@@ -34,7 +34,7 @@ function operate (currentNum, nextNum, operator) {
     }
 }
 
-function next () {
+function next () { //Switches to next num
     isFirstNum = false;
     isSecondNum = true;
     digits.forEach(button => {
@@ -47,16 +47,17 @@ function next () {
     });                                                                            
     
 }
-function backToOne () {
+function backToOne () { //Resets default button functionaily
     digits.forEach(button => {
         button.onclick = () => {
+            currentNum = '';
             currentNum += button.textContent;
             console.log(currentNum);
             display.textContent = currentNum;
         }
     });
 }
-function resetNums() {
+function resetNums() { //Resets all values back to default
     currentNum = '';
     nextNum = '';
     operator = '';
@@ -88,7 +89,7 @@ digits.forEach(button => {
         console.log(currentNum);
         display.textContent = currentNum;
     }
-});
+});                                                                                     
 
 const operators = document.querySelectorAll('.operatorsButtons'); 
 operators.forEach(button => {
@@ -110,13 +111,19 @@ operators.forEach(button => {
 });
 const equals = document.querySelector('.equals');
 equals.addEventListener('click', () => {
-    currentValue = operate(+currentNum, +nextNum, operator);
-    display.textContent = currentValue;
-    console.log(currentValue);
-    currentNum = currentValue;
-    nextNum = '';
-    isFirstNum = true;
-    isSecondNum = false;
+    if(currentNum === '' || nextNum === '') { //Resets to default if equals is pressed is any number is empty
+        resetNums();
+        display.textContent = '';
+    } else {
+        currentValue = operate(+currentNum, +nextNum, operator);
+        display.textContent = currentValue;
+        console.log(currentValue);
+        currentNum = currentValue;
+        nextNum = ''; //resets to default expect of currentValue
+        isFirstNum = true;
+        isSecondNum = false;
+        backToOne();
+    }
 });
 const clear = document.querySelector('.clear');
 clear.addEventListener('click', () => {
