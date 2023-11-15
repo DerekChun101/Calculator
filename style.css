@@ -19,12 +19,16 @@
     text-align: right;
     background-color: azure;
 }
+button:hover {
+    filter: saturate(0.5);
+}
 .buttons-Container {
     display: flex;
     min-width: 200px;
     min-height: 200px;
     
 }
+
 .digits-Container {
     display: grid;
     min-width: 150px;
