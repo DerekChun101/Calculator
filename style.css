@@ -12,12 +12,19 @@
 
 }
 .display{
-    height: 48px;
+    height: 33px;
     border: 1px solid black;
     width: auto;
     font-size: 18px;
     text-align: right;
     background-color: azure;
+}
+.top{
+    display: grid;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    height: 15px;
+    grid-template-columns: 100px 100px;
 }
 button:hover {
     filter: saturate(0.5);
@@ -50,11 +57,25 @@ button:hover {
     background-color: aquamarine;
 
 }
-.equals, .clear {
+.point {
+    height: 50px                                                            ;
     padding: 0;
     margin: 0px;
     border: 1px solid black;
+    background-color: aquamarine;
+}
+ .clear {
+    padding: 0;
+    margin: 0px;
+    border: 1px solid black;
+    border-right: 2px solid black;
     background-color: rosybrown;
+}
+.equals {
+    padding: 0;
+    margin: 0px;
+    border: 1px solid black;
+    background-color: orange;
 }
 
 .operatorsButtons {
@@ -69,5 +90,6 @@ button:hover {
 }
 .clear {
     width: 50px;
+  
     font-size: 10px;
 }
