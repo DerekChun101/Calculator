@@ -17,6 +17,7 @@ function multiply(x ,y) {
 function divide(x, y) {
     //console.log(x / y);
     return x/y;
+    
 }
 
 
@@ -40,8 +41,11 @@ function next () { //Switches to next num
     digits.forEach(button => {
         button.onclick = () => {
             nextNum += button.textContent;
+            if(nextNum.length > 21) {
+                nextNum = nextNum.slice(0, -1);
+            }
             display.textContent = nextNum;
-            console.log(nextNum);                                                          
+            console.log(nextNum);                                                   
         
         }
     });                                                                            
@@ -55,6 +59,9 @@ function backToDefault () { //Resets default button functionaily
                 afterEquals = false;
             }
             currentNum += button.textContent;
+            if(currentNum.length > 21) {
+                currentNum = currentNum.slice(0, -1);
+            }
             console.log(currentNum);
             display.textContent = currentNum;
         }
@@ -88,13 +95,18 @@ let afterEquals = false;
 //BUTTONS
 const digits = document.querySelectorAll('.digitsButton');
 const display = document.querySelector('.display');
+
 digits.forEach(button => {
     button.onclick = () => {
         currentNum += button.textContent;
+        if(currentNum.length > 21) {
+            currentNum = currentNum.slice(0, -1);
+        }
         console.log(currentNum);
         display.textContent = currentNum;
     }
 });          
+
 const point = document.querySelector('.point');
 point.addEventListener('click', () => {
     if(!display.textContent.includes('.') && isFirstNum) {
@@ -122,7 +134,7 @@ operators.forEach(button => {
                 resetNums();
                 backToDefault();
             } else {
-                display.textContent = +currentValue.toFixed('8');
+                display.textContent = +currentValue.toFixed('7');
                 console.log(currentValue);
                 operator = button.id;
                 currentNum = currentValue;
@@ -131,19 +143,20 @@ operators.forEach(button => {
         } 
     })
 });
+
 const equals = document.querySelector('.equals');
 equals.addEventListener('click', () => {
     if(currentNum === '' || nextNum === '') { //Resets to default if equals is pressed is any number is empty
         resetNums();
         display.textContent = '';
     } else {
-        currentValue = operate(+currentNum, +nextNum, operator);
+        currentValue = parseFloat(operate(+currentNum, +nextNum, operator));
         if(currentValue === Infinity) {
             display.textContent = 'Kaboom';
             resetNums();
             backToDefault();
         } else {
-            display.textContent = +currentValue.toFixed('8');
+            display.textContent = +currentValue.toFixed('7');
             console.log(currentValue);
             currentNum = currentValue;
             nextNum = ''; //resets to default expect of currentValue
