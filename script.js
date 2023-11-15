@@ -47,7 +47,7 @@ function next () { //Switches to next num
     });                                                                            
     
 }
-function backToOne () { //Resets default button functionaily
+function backToDefault () { //Resets default button functionaily
     digits.forEach(button => {
         button.onclick = () => { 
             if(isFirstNum === true && isSecondNum === false && afterEquals === true) { 
@@ -105,12 +105,17 @@ operators.forEach(button => {
             next();
         } else if(isFirstNum === false && isSecondNum === true) {
             currentValue = operate(+currentNum, +nextNum, operator);
-            display.textContent = +currentValue.toFixed('11');
-            console.log(currentValue);
-            operator = button.id;
-            currentNum = currentValue;
-            nextNum = '';
-
+            if(currentValue === Infinity) {
+                display.textContent = 'Kaboom';
+                resetNums();
+                backToDefault();
+            } else {
+                display.textContent = +currentValue.toFixed('11');
+                console.log(currentValue);
+                operator = button.id;
+                currentNum = currentValue;
+                nextNum = '';
+            }
         } 
     })
 });
@@ -121,20 +126,26 @@ equals.addEventListener('click', () => {
         display.textContent = '';
     } else {
         currentValue = operate(+currentNum, +nextNum, operator);
-        display.textContent = +currentValue.toFixed('11');
-        console.log(currentValue);
-        currentNum = currentValue;
-        nextNum = ''; //resets to default expect of currentValue
-        isFirstNum = true;
-        isSecondNum = false;
-        afterEquals = true;
-        backToOne();
+        if(currentValue === Infinity) {
+            display.textContent = 'Kaboom';
+            resetNums();
+            backToDefault();
+        } else {
+            display.textContent = +currentValue.toFixed('11');
+            console.log(currentValue);
+            currentNum = currentValue;
+            nextNum = ''; //resets to default expect of currentValue
+            isFirstNum = true;
+            isSecondNum = false;
+            afterEquals = true;
+            backToDefault();
+        }
     }
 });
 const clear = document.querySelector('.clear');
 clear.addEventListener('click', () => {
     display.textContent = '';
     resetNums();
-    backToOne();
+    backToDefault();
 });
 
