@@ -16,4 +16,6 @@
     height: 30px;
     border: 2px solid black;
     width: auto;
+    font-size: 30px;
+    text-align: right;
 }

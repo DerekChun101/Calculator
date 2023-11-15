@@ -49,8 +49,11 @@ function next () { //Switches to next num
 }
 function backToOne () { //Resets default button functionaily
     digits.forEach(button => {
-        button.onclick = () => {
-            currentNum = '';
+        button.onclick = () => { 
+            if(isFirstNum === true && isSecondNum === false && afterEquals === true) { 
+                currentNum = ''; //resets currentNum to blank, after a digit is pressed right after the equals sign is pressed
+                afterEquals = false;
+            }
             currentNum += button.textContent;
             console.log(currentNum);
             display.textContent = currentNum;
@@ -63,6 +66,7 @@ function resetNums() { //Resets all values back to default
     operator = '';
     isFirstNum = true;
     isSecondNum = false;
+    afterEquals = false;
 }
 // function updateDisplay(text) {
 //     currentNum += this.textContent;
@@ -78,6 +82,7 @@ let operator = '';
 let currentValue = '';
 let isFirstNum = true;
 let isSecondNum = false;
+let afterEquals = false;
 
 //BUTTONS
 const digits = document.querySelectorAll('.digitsButton');
@@ -85,6 +90,7 @@ const display = document.querySelector('.display');
 
 digits.forEach(button => {
     button.onclick = () => {
+     
         currentNum += button.textContent;
         console.log(currentNum);
         display.textContent = currentNum;
@@ -106,7 +112,7 @@ operators.forEach(button => {
             currentNum = currentValue;
             nextNum = '';
 
-        }
+        } 
     })
 });
 const equals = document.querySelector('.equals');
@@ -122,6 +128,7 @@ equals.addEventListener('click', () => {
         nextNum = ''; //resets to default expect of currentValue
         isFirstNum = true;
         isSecondNum = false;
+        afterEquals = true;
         backToOne();
     }
 });
