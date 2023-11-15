@@ -90,7 +90,6 @@ const display = document.querySelector('.display');
 
 digits.forEach(button => {
     button.onclick = () => {
-     
         currentNum += button.textContent;
         console.log(currentNum);
         display.textContent = currentNum;
@@ -106,7 +105,7 @@ operators.forEach(button => {
             next();
         } else if(isFirstNum === false && isSecondNum === true) {
             currentValue = operate(+currentNum, +nextNum, operator);
-            display.textContent = currentValue;
+            display.textContent = +currentValue.toFixed('11');
             console.log(currentValue);
             operator = button.id;
             currentNum = currentValue;
@@ -122,7 +121,7 @@ equals.addEventListener('click', () => {
         display.textContent = '';
     } else {
         currentValue = operate(+currentNum, +nextNum, operator);
-        display.textContent = currentValue;
+        display.textContent = +currentValue.toFixed('11');
         console.log(currentValue);
         currentNum = currentValue;
         nextNum = ''; //resets to default expect of currentValue
