@@ -84,17 +84,29 @@ let isFirstNum = true;
 let isSecondNum = false;
 let afterEquals = false;
 
+
 //BUTTONS
 const digits = document.querySelectorAll('.digitsButton');
 const display = document.querySelector('.display');
-
 digits.forEach(button => {
     button.onclick = () => {
         currentNum += button.textContent;
         console.log(currentNum);
         display.textContent = currentNum;
     }
-});                                                                                     
+});          
+const point = document.querySelector('.point');
+point.addEventListener('click', () => {
+    if(!display.textContent.includes('.') && isFirstNum) {
+        currentNum += point.textContent;
+        console.log(currentNum);
+        display.textContent = currentNum;
+    } else if(!display.textContent.includes('.') && isSecondNum) {
+            nextNum += point.textContent;
+            display.textContent = nextNum;
+            console.log(nextNum);   
+    }
+});                                                                   
 
 const operators = document.querySelectorAll('.operatorsButtons'); 
 operators.forEach(button => {
@@ -110,7 +122,7 @@ operators.forEach(button => {
                 resetNums();
                 backToDefault();
             } else {
-                display.textContent = +currentValue.toFixed('11');
+                display.textContent = +currentValue.toFixed('8');
                 console.log(currentValue);
                 operator = button.id;
                 currentNum = currentValue;
@@ -131,7 +143,7 @@ equals.addEventListener('click', () => {
             resetNums();
             backToDefault();
         } else {
-            display.textContent = +currentValue.toFixed('11');
+            display.textContent = +currentValue.toFixed('8');
             console.log(currentValue);
             currentNum = currentValue;
             nextNum = ''; //resets to default expect of currentValue
